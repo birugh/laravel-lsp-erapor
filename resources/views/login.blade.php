@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <script src="{{ asset('assets/js/script.js') }}" defer></script>
 </head>
+
 <body>
     <div class="container">
         <div class="logo">
@@ -50,4 +52,5 @@
         </div>
     </div>
 </body>
+
 </html>

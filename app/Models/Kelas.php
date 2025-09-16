@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kelas extends Model
 {
-use HasFactory;
+    use HasFactory;
 
     protected $table = 'kelas';
+
     protected $guarded = ['id'];
 }

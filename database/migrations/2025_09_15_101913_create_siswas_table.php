@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('siswas', function (Blueprint $table) {
             $table->id();
-            $table->string('nis', 100)->unique  ();
+            $table->string('nis', 100)->unique();
             $table->string('nama_siswa', 50);
             $table->integer('id_kelas');
             $table->string('password', 100);

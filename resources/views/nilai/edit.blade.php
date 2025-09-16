@@ -30,7 +30,8 @@
                     <label for="matematika">Matematika:</label>
                 </td>
                 <td>
-                    <input value="{{ $nilai->matematika }}" type="number" name="matematika" id="matematika" step="0.01" required>
+                    <input value="{{ $nilai->matematika }}" type="number" name="matematika" id="matematika" step="0.01"
+                        required>
                 </td>
             </tr>
 
@@ -39,7 +40,8 @@
                     <label for="indonesia">Indonesia:</label>
                 </td>
                 <td>
-                    <input value="{{ $nilai->indonesia }}" type="number" name="indonesia" id="indonesia" step="0.01" required>
+                    <input value="{{ $nilai->indonesia }}" type="number" name="indonesia" id="indonesia" step="0.01"
+                        required>
                 </td>
             </tr>
 
@@ -48,7 +50,8 @@
                     <label for="inggris">Inggris:</label>
                 </td>
                 <td>
-                    <input value="{{ $nilai->inggris }}" type="number" name="inggris" id="inggris" step="0.01" required>
+                    <input value="{{ $nilai->inggris }}" type="number" name="inggris" id="inggris" step="0.01"
+                        required>
                 </td>
             </tr>
 
@@ -57,7 +60,8 @@
                     <label for="kejuruan">Kejuruan:</label>
                 </td>
                 <td>
-                    <input value="{{ $nilai->kejuruan }}" type="number" name="kejuruan" id="kejuruan" step="0.01" required>
+                    <input value="{{ $nilai->kejuruan }}" type="number" name="kejuruan" id="kejuruan" step="0.01"
+                        required>
                 </td>
             </tr>
 
@@ -66,7 +70,8 @@
                     <label for="pilihan">Pilihan:</label>
                 </td>
                 <td>
-                    <input value="{{ $nilai->pilihan }}" type="number" name="pilihan" id="pilihan" step="0.01" required>
+                    <input value="{{ $nilai->pilihan }}" type="number" name="pilihan" id="pilihan" step="0.01"
+                        required>
                 </td>
             </tr>
         </table>

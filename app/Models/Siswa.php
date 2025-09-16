@@ -10,11 +10,14 @@ class Siswa extends Model
     use HasFactory;
 
     protected $table = 'siswas';
+
     protected $fillable = ['nis', 'password', 'nama_siswa'];
+
     protected $guarded = ['id'];
+
     protected $hidden = ['password'];
 
-public function kelas()
+    public function kelas()
     {
         return $this->belongsTo(Kelas::class, 'id_kelas');
     }
