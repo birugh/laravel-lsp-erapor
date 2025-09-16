@@ -15,11 +15,11 @@ class Nilai extends Model
 
     public function siswa()
     {
-        return $this->belongsTo(Siswa::class);
+        return $this->belongsTo(Siswa::class, 'id_siswa');
     }
 
     public function walas()
     {
-        return $this->belongsTo(Walas::class);
+        return $this->belongsTo(Walas::class, 'id_walas');
     }
 }

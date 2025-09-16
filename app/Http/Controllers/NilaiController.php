@@ -29,9 +29,9 @@ class NilaiController extends Controller
     public function create()
     {
         $walas = Walas::find(session('id'));
-        $nilai = Nilai::pluck('siswa_id');
+        $nilai = Nilai::pluck('id_siswa');
 
-        $siswa = Siswa::where('kelas_id', $walas->kelas_id)
+        $siswa = Siswa::where('id_kelas', $walas->id_kelas)
             ->whereNotIn('id', $nilai)
             ->get();
 

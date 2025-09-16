@@ -1,3 +1,4 @@
+@extends('layout.main')
 @section('name')
     <h3>Tambahkan Nilai</h3>
 @endsection
@@ -14,10 +15,10 @@
         <table>
             <tr class="position">
                 <td>
-                    <label for="siswa_id">Nama Siswa:</label>
+                    <label for="id_siswa">Nama Siswa:</label>
                 </td>
                 <td>
-                    <select name="siswa_id" id="siswa_id" required>
+                    <select name="id_siswa" id="id_siswa" required>
                         <option value="">Pilih Siswa</option>
                         @foreach ($siswa as $each)
                             <option value="{{ $each->id }}">{{ $each->nama_siswa }}</option>

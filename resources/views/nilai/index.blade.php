@@ -4,7 +4,8 @@
 @endsection
 @section('content')
     <center>
-        {{-- {{ dd($kelas) }} --}}
+        {{--
+        {{ dd($kelas) }} --}}
         <h1>REKAP NILAI RAPORT <br> {{ $kelas->nama_kelas }}</h1>
 
         {{-- @if (session('role') == 'guru') --}}
@@ -72,7 +73,7 @@
                                     <button class="index-button">DELETE</button>
                                 </a>
                             </div>
-                            {{-- <a href="/show/{{ $nilai->siswa_id }}">RAPORT</a> --}}
+                            {{-- <a href="/show/{{ $nilai->id_siswa }}">RAPORT</a> --}}
                         </td>
                     </tr>
                 @endforeach
