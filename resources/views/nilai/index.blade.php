@@ -48,7 +48,7 @@
                     <th class="border-head">RATA - RATA</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody> 
                 @foreach ($data_nilai as $data)
                     <tr>
                         <td class="border-data">{{ $loop->iteration }}</td>
