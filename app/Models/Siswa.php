@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Siswa extends Model
 {
     use HasFactory;
+
+    protected $table = 'siswas';
+    protected $fillable = ['nis', 'password', 'nama_siswa'];
+    protected $guarded = ['id'];
+    protected $hidden = ['password'];
+
+public function kelas()
+    {
+        return $this->belongsTo(Kelas::class);
+    }
+
+    public function nilai()
+    {
+        return $this->hasMany(Nilai::class);
+    }
 }
