@@ -9,7 +9,7 @@ class Walas extends Model
 {
     use HasFactory;
 
-    protected $table = 'kelas';
+    protected $table = 'walas';
     protected $guarded = ['id'];
     protected $fillable = ['nig', 'password', 'nama_walas'];
     protected $hidden = ['password'];

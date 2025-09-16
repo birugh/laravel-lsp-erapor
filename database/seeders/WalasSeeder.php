@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Walas;
 use Illuminate\Database\Seeder;
 
 class WalasSeeder extends Seeder
@@ -25,6 +27,10 @@ class WalasSeeder extends Seeder
                 'id_kelas' => 2,
                 'password' => bcrypt('1234')
             ]
+
         ];
+        foreach ($data as $walas) {
+            Walas::create($walas);
+        }
     }
 }

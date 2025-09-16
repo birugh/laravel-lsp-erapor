@@ -39,6 +39,6 @@ Route::middleware('CheckUserRole:Walas')->group(function () {
             Route::put('/update/{nilai}', 'update');
             Route::get('/destroy/{nilai}', 'destroy');
             Route::get('/show/{id}', 'showNilai');
-            Route::get('/show', 'show');
+            Route::get('/', 'show');
         });
 });
