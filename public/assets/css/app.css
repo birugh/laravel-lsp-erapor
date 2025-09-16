@@ -1,0 +1,147 @@
+*{
+    margin:0;
+    padding:0;
+    
+    font-family: monospace;
+    font-size: 16px
+}
+
+.header{
+    display:flex;
+    align-items:center;
+    height:175px;
+    background-color:#0a69a9;
+    padding:10px;
+    .badge{
+        height:100px;
+    }
+    .banner{
+        width:100vw;
+        height:170px;
+    }
+}
+
+
+.container{
+    display:flex;
+    padding:10px;
+    margin: 10px;
+    margin-left: 200px;
+    border-radius:50px;
+    color:white;
+    background-color: #0a69a9;
+    
+    justify-content:space-between;
+}
+.greet{
+    margin-right:10px;
+
+}
+
+.sidebar{
+    display:flex;
+    flex-direction:column;
+    gap:50px;
+    background:#0a69a9;
+    width:15%;
+    height:69vh;
+    float:left;
+    a{
+        padding-left:10px;
+        text-decoration:none;
+        color:white ;
+        font-weight: 900;
+    }
+    a:hover{
+        text-decoration:underline;
+    }
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #0a69a9;
+    padding:10px;
+    color: white;
+    text-align: center;
+ }
+
+ .form{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    input,select{
+        width:400px;
+        height:30px;
+        margin-bottom:10px;
+    }
+    .position{
+        text-align:left;
+    }
+ }
+ button{
+    padding:10px;
+    background:#0a69a9;
+    color:white;
+    border:none;
+    width:300px;
+    margin-top:5px;
+    border-radius:50px;
+ }
+ .index-button{
+    font-size: 10pt;
+    padding:10px !important;
+    /* background:none !important; */
+    color:white !important;
+    border:none !important;
+    width:60px !important;
+    border-radius:10px !important;
+    cursor:pointer
+ }
+ .add-button{
+    font-size: 10pt;
+    padding:10px !important;
+    /* background:none !important; */
+    color:white !important;
+    border:none !important;
+    width:200px !important;
+    margin-right:100px;
+    border-radius:10px !important;
+    cursor:pointer;
+
+ }
+
+ .table-show{
+    padding:10px;
+    border-spacing: 0;
+}
+
+.table-view{
+    width:50%;
+}
+
+.action{
+    margin:10px
+}
+
+.border-head{
+    background:lightblue;
+    font-size:9pt;
+    padding:4px;
+    border: 1px solid #777777
+}
+.border-data{
+    text-align:center;
+    border: 1px solid #777777
+}
+
+ button:hover{
+    background:skyblue;
+ }
+
+ h1{
+    font-size:30px
+ }
