@@ -16,11 +16,11 @@ class Siswa extends Model
 
 public function kelas()
     {
-        return $this->belongsTo(Kelas::class);
+        return $this->belongsTo(Kelas::class, 'id_kelas');
     }
 
     public function nilai()
     {
-        return $this->hasMany(Nilai::class);
+        return $this->hasMany(Nilai::class, 'id_siswa');
     }
 }
