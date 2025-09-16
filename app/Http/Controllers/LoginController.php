@@ -60,4 +60,9 @@ class LoginController extends Controller
 
         return redirect('nilai-raport/show');
     }
+    public function logout()
+    {
+        session()->flush();
+        return redirect('/');
+    }
 }

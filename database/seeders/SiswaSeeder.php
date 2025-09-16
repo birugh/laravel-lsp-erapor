@@ -15,7 +15,7 @@ class SiswaSeeder extends Seeder
     {
         $data = [
             [
-                'nis' => '1224001',
+                'nis' => '1',
                 'nama_siswa' => 'Arya',
                 'id_kelas' => 1,
                 'password' => bcrypt('1224001'),
