@@ -26,7 +26,7 @@
                     <td><label for="{{ $field }}">{{ ucfirst($field) }}:</label></td>
                     <td>
                         <input id="{{ $field }}" name="{{ $field }}" type="number" step="0.01"
-                            value="{{ $nilai->$field }}" max="100" required>
+                            value="{{ $nilai->$field }}" min="0" max="100" required>
                     </td>
                 </tr>
             @endforeach

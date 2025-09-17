@@ -40,7 +40,7 @@ class NilaiController extends Controller
 
     public function store(Request $request)
     {
-        $rules = collect($this->mapel)->mapWithKeys(fn($m) => [$m => ['required','numeric','max:100']])
+        $rules = collect($this->mapel)->mapWithKeys(fn($m) => [$m => ['required','numeric','between:0,100']])
                                       ->put('id_siswa',['required'])
                                       ->toArray();
         $data = $request->validate($rules);

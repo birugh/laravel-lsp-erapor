@@ -28,7 +28,7 @@
             @foreach (['matematika' => 'Matematika', 'indonesia' => 'Indonesia', 'inggris' => 'Inggris', 'kejuruan' => 'Kejuruan', 'pilihan' => 'Pilihan'] as $name => $label)
                 <tr class="position">
                     <td><label for="{{ $name }}">{{ $label }}:</label></td>
-                    <td><input type="number" name="{{ $name }}" id="{{ $name }}" step="0.01" max="100" required>
+                    <td><input type="number" name="{{ $name }}" id="{{ $name }}" step="0.01" min="0" max="100" required>
                     </td>
                 </tr>
             @endforeach
