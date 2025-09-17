@@ -18,7 +18,7 @@
     <div class="sidebar">
         @if (session('role') == 'Walas')
             <a href="/nilai-raport/create">INPUT NILAI</a>
-            <a href="/nilai-raport/index">REKAP NILAI</a>
+            <a href="/nilai-raport/index">DATA NILAI</a>
         @else
             <a href="/nilai-raport/show">REKAP NILAI</a>
         @endif
