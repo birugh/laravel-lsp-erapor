@@ -115,7 +115,10 @@ class NilaiController extends Controller
 
         $nilai = optional($siswa->nilai)->first();
 
-        $walas = Nilai::with('walas')->first();
+        $walas = null;
+        if ($siswa && isset($siswa->id_kelas)) {
+            $walas = Walas::where('id_kelas', $siswa->id_kelas)->first();
+        }
 
         $data_nilai = [
             'matematika' => [
@@ -149,6 +152,21 @@ class NilaiController extends Controller
             'data_nilai' => $data_nilai,
             'walas' => $walas,
         ]);
+    }
+
+    /**
+     * Show nilai for the currently-logged-in student (uses session id).
+     * This route is intended for students (no Walas middleware required).
+     */
+    public function showForStudent()
+    {
+        $id = session('id');
+
+        if (! $id) {
+            return redirect('/')->with('error', 'Silakan login terlebih dahulu');
+        }
+
+        return $this->showNilai($id);
     }
 
     public function gradeMapel($nilai)

@@ -34,6 +34,8 @@ Route::middleware('CheckUserRole:Walas')->group(function () {
             Route::put('/update/{nilai}', 'update');
             Route::get('/destroy/{nilai}', 'destroy');
             Route::get('/show/{id}', 'showNilai');
-            Route::get('/', 'show');
+            // Route::get('/', 'show');
         });
 });
+
+Route::get('nilai-raport/show', [NilaiController::class, 'showNilaiStudent']);
