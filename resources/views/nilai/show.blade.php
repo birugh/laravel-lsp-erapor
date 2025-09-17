@@ -5,77 +5,64 @@
 @endsection
 
 @section('content')
-    <center>
-        <table align="center" cellspacing="0" class="table-show">
-            <tr>
-                <td>Nama Siswa</td>
-                <td>:</td>
-                <td>{{ $siswa->nama_siswa }}</td>
-            </tr>
-            <tr>
-                <td>Nomor Induk Siswa</td>
-                <td>:</td>
-                <td>{{ $siswa->nis }}</td>
-            </tr>
-            <tr>
-                <td>Nama Walas</td>
-                <td>:</td>
-                <td>{{ $walas->nama_walas ?? 'Belum ada wali kelas yang ditetapkan' }}</td>
-            </tr>
-            <tr>
-                <td>Kelas</td>
-                <td>:</td>
-                <td>{{ $siswa->kelas->nama_kelas }}</td>
-            </tr>
-        </table>
+    <table class="table-show" style="text-align:center; margin:0 auto 1rem;">
+        <tr>
+            <td>Nama Siswa</td>
+            <td>:</td>
+            <td>{{ $siswa->nama_siswa }}</td>
+        </tr>
+        <tr>
+            <td>Nomor Induk Siswa</td>
+            <td>:</td>
+            <td>{{ $siswa->nis }}</td>
+        </tr>
+        <tr>
+            <td>Nama Walas</td>
+            <td>:</td>
+            <td>{{ $walas->nama_walas ?? 'Belum ada wali kelas yang ditetapkan' }}</td>
+        </tr>
+        <tr>
+            <td>Kelas</td>
+            <td>:</td>
+            <td>{{ $siswa->kelas->nama_kelas }}</td>
+        </tr>
+    </table>
 
-        <table class="table-show table-view">
-            <thead>
+    <table class="table-show table-view" style="margin:0 auto;">
+        <thead>
+            <tr>
+                <th class="border-head">No</th>
+                <th class="border-head">Mata Pelajaran</th>
+                <th class="border-head">Nilai</th>
+                <th class="border-head">Grade</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php
+                $subjects = [
+                    ['key' => 'matematika', 'label' => 'Matematika'],
+                    ['key' => 'indonesia', 'label' => 'Bahasa Indonesia'],
+                    ['key' => 'inggris', 'label' => 'Bahasa Inggris'],
+                    ['key' => 'kejuruan', 'label' => 'Konsentrasi Keahlian'],
+                    ['key' => 'pilihan', 'label' => 'Mata Pelajaran Pilihan'],
+                ];
+            @endphp
+
+            @foreach ($subjects as $i => $s)
                 <tr>
-                    <th class="border-head">No</th>
-                    <th class="border-head">Mata Pelajaran</th>
-                    <th class="border-head">Nilai</th>
-                    <th class="border-head">Grade</th>
+                    <td class="border-data">{{ $i + 1 }}</td>
+                    <td class="border-data">{{ $s['label'] }}</td>
+                    <td class="border-data">{{ $data_nilai[$s['key']]['nilai'] }}</td>
+                    <td class="border-data">{{ $data_nilai[$s['key']]['grade'] }}</td>
                 </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="border-data">1</td>
-                    <td class="border-data">Matematika</td>
-                    <td class="border-data">{{ $data_nilai['matematika']['nilai'] }}</td>
-                    <td class="border-data">{{ $data_nilai['matematika']['grade'] }}</td>
-                </tr>
-                <tr>
-                    <td class="border-data">2</td>
-                    <td class="border-data">Bahasa Indonesia</td>
-                    <td class="border-data">{{ $data_nilai['indonesia']['nilai'] }}</td>
-                    <td class="border-data">{{ $data_nilai['indonesia']['grade'] }}</td>
-                </tr>
-                <tr>
-                    <td class="border-data">3</td>
-                    <td class="border-data">Bahasa Inggris</td>
-                    <td class="border-data">{{ $data_nilai['inggris']['nilai'] }}</td>
-                    <td class="border-data">{{ $data_nilai['inggris']['grade'] }}</td>
-                </tr>
-                <tr>
-                    <td class="border-data">4</td>
-                    <td class="border-data">Konsentrasi Keahlian</td>
-                    <td class="border-data">{{ $data_nilai['kejuruan']['nilai'] }}</td>
-                    <td class="border-data">{{ $data_nilai['kejuruan']['grade'] }}</td>
-                </tr>
-                <tr>
-                    <td class="border-data">5</td>
-                    <td class="border-data">Mata Pelajaran Pilihan</td>
-                    <td class="border-data">{{ $data_nilai['pilihan']['nilai'] }}</td>
-                    <td class="border-data">{{ $data_nilai['pilihan']['grade'] }}</td>
-                </tr>
-                <tr>
-                    <th class="border-data"></th>
-                    <th class="border-data">Rata - rata</th>
-                    <td class="border-data">{{ $data_nilai['rata_rata']['nilai'] }}</td>
-                    <td class="border-data">{{ $data_nilai['rata_rata']['grade'] }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </center>
+            @endforeach
+
+            <tr>
+                <th class="border-data"></th>
+                <th class="border-data">Rata - rata</th>
+                <td class="border-data">{{ $data_nilai['rata_rata']['nilai'] }}</td>
+                <td class="border-data">{{ $data_nilai['rata_rata']['grade'] }}</td>
+            </tr>
+        </tbody>
+    </table>
 @endsection

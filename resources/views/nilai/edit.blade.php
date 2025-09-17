@@ -12,68 +12,24 @@
     <form class="form" action="/nilai-raport/update/{{ $nilai->id }}" method="post">
         @csrf
         @method('put')
-
-        {{-- Dropdown untuk memilih Siswa --}}
         <table>
             <tr class="position">
+                <td><label>Nama Siswa:</label></td>
                 <td>
-                    <label for="id_siswa">Nama Siswa:</label>
-                </td>
-                <td>
-                    <input value="{{ $siswa->id }}" type="hidden" name="id_siswa" id="id_siswa" step="0.01" required>
-                    <input value="{{ $siswa->nama_siswa }}" type="text" step="0.01" readonly>
+                    <input type="hidden" name="id_siswa" value="{{ $siswa->id }}">
+                    <input type="text" value="{{ $siswa->nama_siswa }}" readonly>
                 </td>
             </tr>
 
-            <tr class="position">
-                <td>
-                    <label for="matematika">Matematika:</label>
-                </td>
-                <td>
-                    <input value="{{ $nilai->matematika }}" type="number" name="matematika" id="matematika" step="0.01"
-                        required>
-                </td>
-            </tr>
-
-            <tr class="position">
-                <td>
-                    <label for="indonesia">Indonesia:</label>
-                </td>
-                <td>
-                    <input value="{{ $nilai->indonesia }}" type="number" name="indonesia" id="indonesia" step="0.01"
-                        required>
-                </td>
-            </tr>
-
-            <tr class="position">
-                <td>
-                    <label for="inggris">Inggris:</label>
-                </td>
-                <td>
-                    <input value="{{ $nilai->inggris }}" type="number" name="inggris" id="inggris" step="0.01"
-                        required>
-                </td>
-            </tr>
-
-            <tr class="position">
-                <td>
-                    <label for="kejuruan">Kejuruan:</label>
-                </td>
-                <td>
-                    <input value="{{ $nilai->kejuruan }}" type="number" name="kejuruan" id="kejuruan" step="0.01"
-                        required>
-                </td>
-            </tr>
-
-            <tr class="position">
-                <td>
-                    <label for="pilihan">Pilihan:</label>
-                </td>
-                <td>
-                    <input value="{{ $nilai->pilihan }}" type="number" name="pilihan" id="pilihan" step="0.01"
-                        required>
-                </td>
-            </tr>
+            @foreach (['matematika', 'indonesia', 'inggris', 'kejuruan', 'pilihan'] as $field)
+                <tr class="position">
+                    <td><label for="{{ $field }}">{{ ucfirst($field) }}:</label></td>
+                    <td>
+                        <input id="{{ $field }}" name="{{ $field }}" type="number" step="0.01"
+                            value="{{ $nilai->$field }}" max="100" required>
+                    </td>
+                </tr>
+            @endforeach
         </table>
 
         <button class="button-submit" type="submit">Simpan</button>

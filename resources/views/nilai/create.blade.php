@@ -14,9 +14,7 @@
         @csrf
         <table>
             <tr class="position">
-                <td>
-                    <label for="id_siswa">Nama Siswa:</label>
-                </td>
+                <td><label for="id_siswa">Nama Siswa:</label></td>
                 <td>
                     <select name="id_siswa" id="id_siswa" required>
                         <option value="">Pilih Siswa</option>
@@ -27,50 +25,13 @@
                 </td>
             </tr>
 
-            <tr class="position">
-                <td>
-                    <label for="matematika">Matematika:</label>
-                </td>
-                <td>
-                    <input type="number" name="matematika" id="matematika" step="0.01" required>
-                </td>
-            </tr>
-
-            <tr class="position">
-                <td>
-                    <label for="indonesia">Indonesia:</label>
-                </td>
-                <td>
-                    <input type="number" name="indonesia" id="indonesia" step="0.01" required>
-                </td>
-            </tr>
-
-            <tr class="position">
-                <td>
-                    <label for="inggris">Inggris:</label>
-                </td>
-                <td>
-                    <input type="number" name="inggris" id="inggris" step="0.01" required>
-                </td>
-            </tr>
-
-            <tr class="position">
-                <td>
-                    <label for="kejuruan">Kejuruan:</label>
-                </td>
-                <td>
-                    <input type="number" name="kejuruan" id="kejuruan" step="0.01" required>
-                </td>
-            </tr>
-
-            <tr class="position">
-                <td>
-                    <label for="pilihan">Pilihan:</label>
-                </td>
-                <td>
-                    <input type="number" name="pilihan" id="pilihan" step="0.01" required>
-                </td>
-            </tr>
+            @foreach (['matematika' => 'Matematika', 'indonesia' => 'Indonesia', 'inggris' => 'Inggris', 'kejuruan' => 'Kejuruan', 'pilihan' => 'Pilihan'] as $name => $label)
+                <tr class="position">
+                    <td><label for="{{ $name }}">{{ $label }}:</label></td>
+                    <td><input type="number" name="{{ $name }}" id="{{ $name }}" step="0.01" max="100" required>
+                    </td>
+                </tr>
+            @endforeach
         </table>
 
         <button class="button-submit" type="submit">Simpan</button>
