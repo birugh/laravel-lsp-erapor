@@ -10,180 +10,110 @@ use Illuminate\Http\Request;
 
 class NilaiController extends Controller
 {
+    // daftar mapel supaya nggak copy-paste
+    protected $mapel = ['matematika','indonesia','inggris','kejuruan','pilihan'];
+
     public function index()
     {
         $walas = Walas::find(session('id'));
+        if (! $walas) return back()->with('error','Data wali kelas tidak ditemukan');
 
-        if (! $walas) {
-            return back()->with('error', 'Data wali kelas tidak ditemukan');
-        }
+        $data_nilai = Nilai::with('siswa')
+            ->whereHas('siswa', fn($q) => $q->where('id_kelas',$walas->id_kelas))
+            ->get();
 
-        $data_nilai = Nilai::whereHas('siswa', function ($query) use ($walas) {
-            $query->where('id_kelas', $walas->id_kelas);
-        })->with('siswa')->get();
+        $kelas = Kelas::find(session('id'));
 
-        $kelas = Kelas::where('id', session('id'))->first();
-
-        return view('nilai.index', compact(['data_nilai', 'kelas']));
+        return view('nilai.index', compact('data_nilai','kelas'));
     }
 
     public function create()
     {
         $walas = Walas::find(session('id'));
-        $nilai = Nilai::pluck('id_siswa');
+        $sudahAda = Nilai::pluck('id_siswa');
+        $siswa = Siswa::where('id_kelas',$walas->id_kelas)
+                      ->whereNotIn('id',$sudahAda)
+                      ->get();
 
-        $siswa = Siswa::where('id_kelas', $walas->id_kelas)
-            ->whereNotIn('id', $nilai)
-            ->get();
-
-        return view('nilai.create', [
-            'siswa' => $siswa,
-        ]);
+        return view('nilai.create', compact('siswa'));
     }
 
     public function store(Request $request)
     {
-        $data_nilai = $request->validate([
-            'id_siswa' => ['required'],
-            'matematika' => ['required', 'numeric', 'max:100'],
-            'indonesia' => ['required', 'numeric', 'max:100'],
-            'inggris' => ['required', 'numeric', 'max:100'],
-            'kejuruan' => ['required', 'numeric', 'max:100'],
-            'pilihan' => ['required', 'numeric', 'max:100'],
-        ]);
+        $rules = collect($this->mapel)->mapWithKeys(fn($m) => [$m => ['required','numeric','max:100']])
+                                      ->put('id_siswa',['required'])
+                                      ->toArray();
+        $data = $request->validate($rules);
 
-        $data_nilai['id_walas'] = session('id');
-        $data_nilai['id_siswa'] = $request->id_siswa;
-        $data_nilai['rata_rata'] = round((
-            $data_nilai['matematika'] +
-            $data_nilai['indonesia'] +
-            $data_nilai['inggris'] +
-            $data_nilai['kejuruan'] +
-            $data_nilai['pilihan']
-        ) / 5);
+        $data['id_walas']  = session('id');
+        $data['rata_rata'] = round(collect($this->mapel)->sum(fn($m) => $data[$m]) / count($this->mapel));
 
-        $cek_nilai = Nilai::where('id_siswa', $request->id_siswa)->first();
-
-        if ($cek_nilai) {
-            return back()->with('error', 'Data nilai untuk siswa tersebut sudah ada');
-        } else {
-            Nilai::create($data_nilai);
-
-            return redirect('/nilai-raport/index')->with('success', 'Data nilai berhasil ditambahkan');
+        if (Nilai::where('id_siswa',$request->id_siswa)->exists()) {
+            return back()->with('error','Data nilai untuk siswa tersebut sudah ada');
         }
+
+        Nilai::create($data);
+        return redirect('/nilai-raport/index')->with('success','Data nilai berhasil ditambahkan');
     }
 
     public function edit(Nilai $nilai)
     {
-        $walas = Walas::find(session('id'));
-        $siswa = Siswa::where('id', $nilai->id_siswa)->first();
-
-        return view('nilai.edit', [
-            'nilai' => $nilai,
-            'siswa' => $siswa,
-        ]);
+        $siswa = Siswa::find($nilai->id_siswa);
+        return view('nilai.edit', compact('nilai','siswa'));
     }
 
     public function update(Request $request, Nilai $nilai)
     {
-        $data_nilai = $request->validate([
-            'id_siswa' => ['required'],
-            'matematika' => ['required', 'numeric', 'max:100'],
-            'indonesia' => ['required', 'numeric', 'max:100'],
-            'inggris' => ['required', 'numeric', 'max:100'],
-            'kejuruan' => ['required', 'numeric', 'max:100'],
-            'pilihan' => ['required', 'numeric', 'max:100'],
-        ]);
+        $rules = collect($this->mapel)->mapWithKeys(fn($m) => [$m => ['required','numeric','max:100']])
+                                      ->put('id_siswa',['required'])
+                                      ->toArray();
+        $data = $request->validate($rules);
 
-        $data_nilai['walas_id'] = session('id');
-        $data_nilai['rata_rata'] = round((
-            $data_nilai['matematika'] +
-            $data_nilai['indonesia'] +
-            $data_nilai['inggris'] +
-            $data_nilai['kejuruan'] +
-            $data_nilai['pilihan']
-        ) / 5);
+        $data['walas_id']  = session('id');
+        $data['rata_rata'] = round(collect($this->mapel)->sum(fn($m) => $data[$m]) / count($this->mapel));
 
-        $nilai->update($data_nilai);
-
-        return redirect('/nilai-raport/index')->with('success', 'Data nilai berhasil diubah');
+        $nilai->update($data);
+        return redirect('/nilai-raport/index')->with('success','Data nilai berhasil diubah');
     }
 
     public function destroy(Nilai $nilai)
     {
         $nilai->delete();
-
-        return redirect('/nilai-raport/index')->with('success', 'Data nilai berhasil diubah');
+        return redirect('/nilai-raport/index')->with('success','Data nilai berhasil dihapus');
     }
 
     public function showNilai($id)
     {
-        $siswa = Siswa::with(['kelas', 'nilai'])->find($id);
-
+        $siswa = Siswa::with(['kelas','nilai'])->find($id);
         $nilai = optional($siswa->nilai)->first();
+        $walas = $siswa?->id_kelas ? Walas::where('id_kelas',$siswa->id_kelas)->first() : null;
 
-        $walas = null;
-        if ($siswa && isset($siswa->id_kelas)) {
-            $walas = Walas::where('id_kelas', $siswa->id_kelas)->first();
-        }
+        $data_nilai = collect(array_merge($this->mapel,['rata_rata']))
+            ->mapWithKeys(fn($m) => [
+                $m => [
+                    'nilai' => $nilai->$m ?? 'Data tidak tersedia',
+                    'grade' => $nilai ? $this->gradeMapel($nilai->$m) : 'N/A',
+                ]
+            ]);
 
-        $data_nilai = [
-            'matematika' => [
-                'nilai' => $nilai->matematika ?? 'Data tidak tersedia',
-                'grade' => $nilai ? $this->gradeMapel($nilai->matematika) : 'N/A',
-            ],
-            'indonesia' => [
-                'nilai' => $nilai->indonesia ?? 'Data tidak tersedia',
-                'grade' => $nilai ? $this->gradeMapel($nilai->indonesia) : 'N/A',
-            ],
-            'inggris' => [
-                'nilai' => $nilai->inggris ?? 'Data tidak tersedia',
-                'grade' => $nilai ? $this->gradeMapel($nilai->inggris) : 'N/A',
-            ],
-            'kejuruan' => [
-                'nilai' => $nilai->kejuruan ?? 'Data tidak tersedia',
-                'grade' => $nilai ? $this->gradeMapel($nilai->kejuruan) : 'N/A',
-            ],
-            'pilihan' => [
-                'nilai' => $nilai->pilihan ?? 'Data tidak tersedia',
-                'grade' => $nilai ? $this->gradeMapel($nilai->pilihan) : 'N/A',
-            ],
-            'rata_rata' => [
-                'nilai' => $nilai->rata_rata ?? 'Data tidak tersedia',
-                'grade' => $nilai ? $this->gradeMapel($nilai->rata_rata) : 'N/A',
-            ],
-        ];
-
-        return view('nilai.show', [
-            'siswa' => $siswa,
-            'data_nilai' => $data_nilai,
-            'walas' => $walas,
-        ]);
+        return view('nilai.show', compact('siswa','data_nilai','walas'));
     }
 
     public function showForStudent()
     {
         $id = session('id');
-
-        if (! $id) {
-            return redirect('/')->with('error', 'Silakan login terlebih dahulu');
-        }
-
+        if (! $id) return redirect('/')->with('error','Silakan login terlebih dahulu');
         return $this->showNilai($id);
     }
 
     public function gradeMapel($nilai)
     {
-        if ($nilai >= 90) {
-            return 'A';
-        } elseif ($nilai >= 80) {
-            return 'B';
-        } elseif ($nilai >= 70) {
-            return 'C';
-        } elseif ($nilai >= 60) {
-            return 'D';
-        } else {
-            return 'E';
-        }
+        return match (true) {
+            $nilai >= 90 => 'A',
+            $nilai >= 80 => 'B',
+            $nilai >= 70 => 'C',
+            $nilai >= 60 => 'D',
+            default      => 'E',
+        };
     }
 }
