@@ -109,6 +109,13 @@ class NilaiController extends Controller
         return redirect('/nilai-raport/index')->with('success', 'Data nilai berhasil diubah');
     }
 
+    public function destroy(Nilai $nilai)
+    {
+        $nilai->delete();
+
+        return redirect('/nilai-raport/index')->with('success', 'Data nilai berhasil diubah');
+    }
+
     public function showNilai($id)
     {
         $siswa = Siswa::with(['kelas', 'nilai'])->find($id);
@@ -154,10 +161,6 @@ class NilaiController extends Controller
         ]);
     }
 
-    /**
-     * Show nilai for the currently-logged-in student (uses session id).
-     * This route is intended for students (no Walas middleware required).
-     */
     public function showForStudent()
     {
         $id = session('id');
@@ -182,12 +185,5 @@ class NilaiController extends Controller
         } else {
             return 'E';
         }
-    }
-
-    public function destroy(Nilai $nilai)
-    {
-        $nilai->delete();
-
-        return redirect('/nilai-raport/index')->with('success', 'Data nilai berhasil diubah');
     }
 }
