@@ -45,11 +45,11 @@ class NilaiController extends Controller
     {
         $data_nilai = $request->validate([
             'id_siswa' => ['required'],
-            'matematika' => ['required'],
-            'indonesia' => ['required'],
-            'inggris' => ['required'],
-            'kejuruan' => ['required'],
-            'pilihan' => ['required'],
+            'matematika' => ['required', 'numeric', 'max:100'],
+            'indonesia' => ['required', 'numeric', 'max:100'],
+            'inggris' => ['required', 'numeric', 'max:100'],
+            'kejuruan' => ['required', 'numeric', 'max:100'],
+            'pilihan' => ['required', 'numeric', 'max:100'],
         ]);
 
         $data_nilai['id_walas'] = session('id');
@@ -88,11 +88,11 @@ class NilaiController extends Controller
     {
         $data_nilai = $request->validate([
             'id_siswa' => ['required'],
-            'matematika' => ['required', 'numeric'],
-            'indonesia' => ['required', 'numeric'],
-            'inggris' => ['required', 'numeric'],
-            'kejuruan' => ['required', 'numeric'],
-            'pilihan' => ['required', 'numeric'],
+            'matematika' => ['required', 'numeric', 'max:100'],
+            'indonesia' => ['required', 'numeric', 'max:100'],
+            'inggris' => ['required', 'numeric', 'max:100'],
+            'kejuruan' => ['required', 'numeric', 'max:100'],
+            'pilihan' => ['required', 'numeric', 'max:100'],
         ]);
 
         $data_nilai['walas_id'] = session('id');
