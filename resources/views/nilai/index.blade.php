@@ -62,7 +62,7 @@
                         <td class="border-data">{{ $data->rata_rata }}</td>
                         <td class="border-data" style="text-align: center">
                             <div class="action">
-                                <a href="/nilai-raport/show/{{ $data->id }}">
+                                <a href="/nilai-raport/show/{{ $data->id_siswa }}">
                                     <button class="index-button">VIEW</button>
                                 </a>
                                 <a href="/nilai-raport/edit/{{ $data->id }}">
