@@ -13,11 +13,11 @@ class Nilai extends Model
 
     protected $guarded = ['id'];
 
-    protected $fillable = ['id_siswa', 'id_walas', 'nama_siswa', 'nama_walas', 'matematika', 'indonesia', 'inggris', 'kejuruan', 'pilihan', 'rata_rata'];
+    protected $fillable = ['siswa_id', 'id_walas', 'nama_siswa', 'nama_walas', 'matematika', 'indonesia', 'inggris', 'kejuruan', 'pilihan', 'rata_rata'];
 
     public function siswa()
     {
-        return $this->belongsTo(Siswa::class, 'id_siswa');
+        return $this->belongsTo(Siswa::class, 'siswa_id');
     }
 
     public function walas()

@@ -16,7 +16,7 @@
             <tr class="position">
                 <td><label>Nama Siswa:</label></td>
                 <td>
-                    <input type="hidden" name="id_siswa" value="{{ $siswa->id }}">
+                    <input type="hidden" name="siswa_id" value="{{ $siswa->id }}">
                     <input type="text" value="{{ $siswa->nama_siswa }}" readonly>
                 </td>
             </tr>

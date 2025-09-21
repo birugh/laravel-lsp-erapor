@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('nilais', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_walas');
-            $table->unsignedBigInteger('id_siswa')->unique();
+            $table->unsignedBigInteger('siswa_id')->unique();
             $table->double('matematika');
             $table->double('indonesia');
             $table->double('inggris');

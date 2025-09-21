@@ -30,7 +30,7 @@ class NilaiController extends Controller
     public function create()
     {
         $walas = Walas::find(session('id'));
-        $sudahAda = Nilai::pluck('id_siswa');
+        $sudahAda = Nilai::pluck('siswa_id');
         $siswa = Siswa::where('id_kelas',$walas->id_kelas)
                       ->whereNotIn('id',$sudahAda)
                       ->get();
@@ -41,14 +41,14 @@ class NilaiController extends Controller
     public function store(Request $request)
     {
         $rules = collect($this->mapel)->mapWithKeys(fn($m) => [$m => ['required','numeric','between:0,100']])
-                                      ->put('id_siswa',['required'])
+                                      ->put('siswa_id',['required'])
                                       ->toArray();
         $data = $request->validate($rules);
 
         $data['id_walas']  = session('id');
         $data['rata_rata'] = round(collect($this->mapel)->sum(fn($m) => $data[$m]) / count($this->mapel));
 
-        if (Nilai::where('id_siswa',$request->id_siswa)->exists()) {
+        if (Nilai::where('siswa_id',$request->siswa_id)->exists()) {
             return back()->with('error','Data nilai untuk siswa tersebut sudah ada');
         }
 
@@ -58,14 +58,14 @@ class NilaiController extends Controller
 
     public function edit(Nilai $nilai)
     {
-        $siswa = Siswa::find($nilai->id_siswa);
+        $siswa = Siswa::find($nilai->siswa_id);
         return view('nilai.edit', compact('nilai','siswa'));
     }
 
     public function update(Request $request, Nilai $nilai)
     {
         $rules = collect($this->mapel)->mapWithKeys(fn($m) => [$m => ['required','numeric','max:100']])
-                                      ->put('id_siswa',['required'])
+                                      ->put('siswa_id',['required'])
                                       ->toArray();
         $data = $request->validate($rules);
 
