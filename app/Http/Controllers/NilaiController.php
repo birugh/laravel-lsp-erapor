@@ -19,7 +19,7 @@ class NilaiController extends Controller
         if (! $walas) return back()->with('error','Data wali kelas tidak ditemukan');
 
         $data_nilai = Nilai::with('siswa')
-            ->whereHas('siswa', fn($q) => $q->where('id_kelas',$walas->id_kelas))
+            ->whereHas('siswa', fn($q) => $q->where('kelas_id',$walas->kelas_id))
             ->get();
 
         $kelas = Kelas::find(session('id'));
@@ -31,7 +31,7 @@ class NilaiController extends Controller
     {
         $walas = Walas::find(session('id'));
         $sudahAda = Nilai::pluck('siswa_id');
-        $siswa = Siswa::where('id_kelas',$walas->id_kelas)
+        $siswa = Siswa::where('kelas_id',$walas->kelas_id)
                       ->whereNotIn('id',$sudahAda)
                       ->get();
 
@@ -45,7 +45,7 @@ class NilaiController extends Controller
                                       ->toArray();
         $data = $request->validate($rules);
 
-        $data['id_walas']  = session('id');
+        $data['walas_id']  = session('id');
         $data['rata_rata'] = round(collect($this->mapel)->sum(fn($m) => $data[$m]) / count($this->mapel));
 
         if (Nilai::where('siswa_id',$request->siswa_id)->exists()) {
@@ -86,7 +86,7 @@ class NilaiController extends Controller
     {
         $siswa = Siswa::with(['kelas','nilai'])->find($id);
         $nilai = optional($siswa->nilai)->first();
-        $walas = $siswa?->id_kelas ? Walas::where('id_kelas',$siswa->id_kelas)->first() : null;
+        $walas = $siswa?->kelas_id ? Walas::where('kelas_id',$siswa->kelas_id)->first() : null;
 
         $data_nilai = collect(array_merge($this->mapel,['rata_rata']))
             ->mapWithKeys(fn($m) => [

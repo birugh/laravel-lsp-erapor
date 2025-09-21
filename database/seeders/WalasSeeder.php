@@ -18,13 +18,13 @@ class WalasSeeder extends Seeder
             [
                 'nig' => '99001111',
                 'nama_walas' => 'Rudi Setiawan',
-                'id_kelas' => 1,
+                'kelas_id' => 1,
                 'password' => bcrypt('1234'),
             ],
             [
                 'nig' => '99001122',
                 'nama_walas' => 'Tari Melani',
-                'id_kelas' => 2,
+                'kelas_id' => 2,
                 'password' => bcrypt('1234'),
             ],
 

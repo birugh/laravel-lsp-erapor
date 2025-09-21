@@ -19,11 +19,11 @@ class Walas extends Model
 
     public function kelas()
     {
-        return $this->belongsTo(Kelas::class, 'id_kelas');
+        return $this->belongsTo(Kelas::class, 'kelas_id');
     }
 
     public function nilai()
     {
-        return $this->hasOne(Kelas::class, 'id_walas');
+        return $this->hasOne(Kelas::class, 'walas_id');
     }
 }

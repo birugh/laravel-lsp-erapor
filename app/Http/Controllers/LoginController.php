@@ -32,7 +32,7 @@ class LoginController extends Controller
             'id' => $walas->id,
             'nig' => $walas->nig,
             'nama' => $walas->nama_walas,
-            'id_kelas' => $walas->id_kelas,
+            'kelas_id' => $walas->kelas_id,
             'nama_kelas' => $kelas ? $kelas->nama_kelas : 'Kelas Belum ditentukan',
         ]);
 
@@ -54,7 +54,7 @@ class LoginController extends Controller
             'id' => $siswa->id,
             'nis' => $siswa->nis,
             'nama' => $siswa->nama_siswa,
-            'id_kelas' => $siswa->id_kelas,
+            'kelas_id' => $siswa->kelas_id,
             'nama_kelas' => $kelas ? $kelas->nama_kelas : 'Kelas Belum ditentukan',
         ]);
 
